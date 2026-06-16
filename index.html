@@ -3,6 +3,53 @@
 
 <head>
     <title>To Do App</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: white;
+            padding: 10px;
+            margin: 5px auto;
+            width: 200px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,19 +62,54 @@
     <ul id="taskList"></ul>
 
     <script>
+
         function addTask() {
             let input = document.getElementById("taskInput");
             let task = input.value;
 
             if (task === "") return;
 
-            let li = document.createElement("li");
-            li.innerText = task;
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+            tasks.push(task);
 
-            document.getElementById("taskList").appendChild(li);
+            localStorage.setItem("tasks", JSON.stringify(tasks));
 
             input.value = "";
+
+            showTasks();
         }
+
+        function showTasks() {
+            let taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+            tasks.forEach((task, index) => {
+                let li = document.createElement("li");
+                li.innerText = task;
+
+                li.onclick = function () {
+                    deleteTask(index);
+                };
+
+                taskList.appendChild(li);
+            });
+        }
+
+        function deleteTask(index) {
+            let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+            tasks.splice(index, 1);
+
+            localStorage.setItem("tasks", JSON.stringify(tasks));
+
+            showTasks();
+        }
+
+        // تحميل البيانات أول ما الصفحة تفتح
+        showTasks();
+
     </script>
 
 </body>
