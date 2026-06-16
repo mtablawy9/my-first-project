@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>My First Project</title>
 </head>
@@ -12,19 +13,19 @@
 
     <button onclick="sayHello()">Click Me</button>
 
+    <button onclick="changeColor()">Change Color</button>
+
     <script>
         function sayHello() {
             alert("Hello Mostafa!");
         }
+
+        function changeColor() {
+            document.body.style.backgroundColor = "lightblue";
+        }
     </script>
 
 </body>
+
 </html>
 ``
-<button onclick="changeColor()">Change Color</button>
-
-<script>
-function changeColor() {
-    document.body.style.backgroundColor = "lightblue";
-}
-</script>
